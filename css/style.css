@@ -1,0 +1,13 @@
+.icon {
+    filter: invert(100%);
+}
+
+.black-section {
+    min-height: 85vh;
+}
+.custom-border-white {
+    border-color: white;
+}
+.margin-card {
+    margin-left: 5%;
+}
