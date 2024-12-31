@@ -1,0 +1,37 @@
+.icon {
+    filter: invert(100%);
+}
+
+.black-section {
+    min-height: 85vh;
+}
+.custom-border-white {
+    border-color: white;
+}
+.margin-card {
+    margin-left: 5%;
+}
+.margin-categories-card {
+    margin-left: 10%;
+}
+
+.placeholder {
+    background-color: #333;
+    padding: 50px;
+    font-size: 30px;
+    line-height: 1.5;
+    color: #FFFFFF;
+}
+.card-text {
+    display: flex;
+    align-items: center;
+}
+.text-body-secondary {
+margin-left: auto;
+}
+
+.no-underline{
+    text-decoration: none;
+    color: #000;
+    margin: 10px;
+}
