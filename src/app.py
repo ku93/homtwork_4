@@ -1,47 +1,52 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import urllib.parse
+import os
 
 hostName = "localhost"
 serverPort = 8080
 
 class MyServer(BaseHTTPRequestHandler):
-    """
-        Специальный класс, который отвечает за
-        обработку входящих запросов от клиентов
-    """
     def do_GET(self):
         """ Метод для обработки входящих GET-запросов """
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
+        if self.path.startswith('/static/'):
+            self.handle_static_files()
+        else:
+            self.send_html_file("../templates/contacts.html")
 
-        try:
-            with open("../templates/contacts.html", "r", encoding="utf-8") as file:
-                html_content = file.read()
-            self.wfile.write(bytes(html_content, "utf-8"))
-        except FileNotFoundError:
+    def handle_static_files(self):
+        """ Обслуживание статических файлов """
+        file_path = f"..{self.path}"
+        if os.path.exists(file_path):
+            self.send_response(200)
+            self.send_header("Content-type", self.get_content_type(file_path))
+            self.end_headers()
+            with open(file_path, "rb") as file:
+                self.wfile.write(file.read())
+        else:
             self.send_response(404)
             self.end_headers()
             self.wfile.write(b"404 Not Found")
 
-    def do_POST(self):
-        """ Метод для обработки входящих POST-запросов """
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
-        parsed_data = urllib.parse.parse_qs(post_data.decode('utf-8'))
+    def get_content_type(self, file_path):
+        """ Возвращает корректный Content-Type для файла """
+        if file_path.endswith(".css"):
+            return "text/css"
+        elif file_path.endswith(".js"):
+            return "application/javascript"
+        elif file_path.endswith(".svg"):
+            return "image/svg+xml"
+        elif file_path.endswith(".ico"):
+            return "image/x-icon"
+        else:
+            return "application/octet-stream"
 
-
-        print("Received POST data:")
-        for key, value in parsed_data.items():
-            print(f"{key}: {value}")
-
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-
+    def send_html_file(self, file_path):
+        """ Обслуживание HTML-файлов """
         try:
-            with open("../templates/contacts.html", "r", encoding="utf-8") as file:
+            with open(file_path, "r", encoding="utf-8") as file:
                 html_content = file.read()
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
             self.wfile.write(bytes(html_content, "utf-8"))
         except FileNotFoundError:
             self.send_response(404)
@@ -50,7 +55,7 @@ class MyServer(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     webServer = HTTPServer((hostName, serverPort), MyServer)
-    print("Server started http://%s:%s" % (hostName, serverPort))
+    print(f"Server started at http://{hostName}:{serverPort}")
 
     try:
         webServer.serve_forever()
