@@ -10,7 +10,7 @@ class MyServer(BaseHTTPRequestHandler):
         if self.path.startswith('/static/'):
             self.handle_static_files()
         else:
-            self.send_html_file("../templates/contacts.html")
+            self.send_html_file("..catalog/template/contacts.html")
 
     def handle_static_files(self):
         """ Обслуживание статических файлов """
