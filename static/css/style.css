@@ -4,6 +4,7 @@
 
 .black-section {
     min-height: 85vh;
+    height: 100vh
 }
 .custom-border-white {
     border-color: white;
@@ -34,4 +35,14 @@ margin-left: auto;
     text-decoration: none;
     color: #000;
     margin: 10px;
+}
+
+.left {
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+}
+.right {
+    padding: 20px;
+    overflow-y: auto;
 }

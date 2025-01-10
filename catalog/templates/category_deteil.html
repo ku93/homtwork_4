@@ -1,0 +1,18 @@
+
+{% extends 'catalogs.html' %}
+{% block content%}
+<div class="row">
+  <div class="col-4 margin-categories-card mt-3">
+    <div class="card mb-3">
+      <div class="placeholder text-center ">{{ category.name }}</div>
+      <div class="card-body ">
+        <p>{{ category.description }}</p>
+        <a href="#" class="btn btn-outline-primary d-grid gap-2">К товарам</a>
+          </div>
+          <small class="text-body-secondary">3 мин.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

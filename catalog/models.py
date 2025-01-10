@@ -14,6 +14,13 @@ class Category(models.Model):
         blank=True,
         null=True,
     )
+    photo = models.ImageField(
+        upload_to="category/photo",
+        blank=True,
+        null=True,
+        verbose_name="Фотография продукта",
+        help_text="Загрузите фотографию продукта",
+    )
 
     class Meta:
         verbose_name = "Категория"
@@ -67,6 +74,8 @@ class Product(models.Model):
         verbose_name="Дата последнего изменения",
         help_text="Дата последнего изменения продукта",
     )
+
+
 
     class Meta:
         verbose_name = "Продукт"

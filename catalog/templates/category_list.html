@@ -1,0 +1,21 @@
+{% extends 'catalogs.html' %}
+{% block content %}
+<div class="row">
+  {% for category in categories %}
+  <div class="col-4 margin-categories-card mt-3">
+    <div class="card mb-3">
+      <img src="{{ category.photo.url }}" class="img-thumbnail" alt="{{ category.name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ category.name|truncatechars:20 }}</h5>
+        <p>{{ category.description|truncatechars:100 }}</p>
+        <div class="card-text text-end">
+          <a class="btn btn-outline-primary d-grid gap-2" href="{% url 'catalog:category_deteil' category.pk %}" role="button">К товарам</a>
+          <small class="text-body-secondary">3 мин.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
