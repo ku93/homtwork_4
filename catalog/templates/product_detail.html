@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% block content%}
+
+<div class="row">
+  <div class="col-3 margin-card mt-3">
+    <div class="card">
+      <h5 class="card-header text-center">{{ product.name }}</h5>
+      <div class="card-body">
+        <h5 class="card-title text-center">{{ product.purchase_price }}</h5>
+        <p class="card-text text-center">{{ product.description}}</p>
+        <a href="#" class="btn btn-outline-primary d-grid gap-2">Купить</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

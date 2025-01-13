@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="row">
+  {% for product in products %}
+    <div class="col-4 margin-categories-card mt-3">
+      <div class="card mb-3">
+        <img src="{{ product.picture.url }}" class="img-thumbnail" alt="{{ product.name }}">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ product.name|truncatechars:20 }}</h5>
+          <p>{{ product.description|truncatechars:100 }}</p>
+          <div class="card-text text-end">
+            <a class="btn btn-outline-primary d-grid gap-2" href="{% url 'catalog:product_detail' product.pk %}" role="button">Подробнее</a>
+            <small class="text-body-secondary">3 мин.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

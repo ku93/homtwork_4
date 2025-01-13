@@ -1,0 +1,19 @@
+{% include 'includes/inc_structured.html' %}
+<title> Меню | Категории</title>
+</head>
+<body>
+<header>
+    <div class="container-max-width">
+        <div class="row">
+            {% include 'includes/inc_menu.html' %}
+            <div class="col-10 mt-5">
+                <h1 class="text-center">Каталог</h1>
+                {% block content%}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</header>
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
