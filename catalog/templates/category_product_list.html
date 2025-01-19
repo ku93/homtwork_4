@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'category_deteil.html' %}
 {% load humanize %}
 {% block content %}
 <div class="container my-5">
@@ -14,7 +14,7 @@
             <p class="card-text">{{ product.description|truncatechars:100 }}</p>
             <h5 class="card-title text-center">{{ product.purchase_price }} р.</h5>
             <div class="mt-auto">
-              <a class="btn btn-outline-primary d-block w-100" href="{% url 'catalog:product_deteil' product.pk %}" role="button">Подробнее</a>
+              <a class="btn btn-outline-primary d-block w-100" href="{% url 'catalog:product_detail' product.pk %}" role="button">Подробнее</a>
               <small class="text-body-secondary">Последнее изменение: {{ product.updated_at|timesince }} назад</small>
             </div>
           </div>
