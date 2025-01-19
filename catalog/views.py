@@ -4,11 +4,11 @@ from catalog.models import Product, Category
 
 def home(request):
     products = Product.objects.all()
-    return render(request, 'product_list.html', {'products': products, 'current_page': 'home'})
+    return render(request, 'index.html', {'products': products, 'current_page': 'home'})
 
 def catalogs(request):
     categorys = Category.objects.all()
-    return render(request, 'category_list.html', {'categorys': categorys, 'current_page': 'catalogs'})
+    return render(request, 'catalogs.html', {'categorys': categorys, 'current_page': 'catalogs'})
 
 def contacts(request):
     return render(request, 'contacts.html', {'current_page': 'contacts'})
@@ -19,9 +19,9 @@ def product_deteil(request, pk):
 
 
 def category_detail(request, pk):
-    category = get_object_or_404(Category, id=pk)
-    products = Product.objects.filter(category=category)
-    return render(request, 'category_product_list.html', {
+    category = get_object_or_404(Category, pk=pk)
+    products = Product.objects.filter(category_id=pk)
+    return render(request, 'category_deteil.html', {
         'products': products,
         'current_page': 'catalogs',
         'category': category
