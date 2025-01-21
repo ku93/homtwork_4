@@ -1,26 +1,14 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% load static %}
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'bootstrap-icons-1.11.3/bootstrap-fill-svgrepo-com.svg' %}" rel="shortcut icon">
-    <title> Меню | {{ product.name }}</title>
-</head>
-<body>
-<div class="row">
-    {% include 'includes/inc_menu.html' %}
-    <div class="col-10 mt-5">
+{% extends 'base.html' %}
+{% block title %}Меню |  {{ product.name }}{% endblock %}
+{% load humanize %}
+{% block content %}
+
         <h1 class="text-center">{{ product.name }}</h1>
         <img src="{{ product.picture.url }}" alt="{{ product.name }}" style="height: 250px; object-fit: cover;" class="mt-5">
         <p class="mt-3">Описание: {{ product.description }}</p>
         <p>Цена: {{ product.purchase_price }} р.</p>
         <a class="btn btn-outline-primary d-block w-25" href="#">Купить</a>
         <p>Последнее изменение: {{ product.updated_at }}</p>
+<p>Добавлен: {{ product.created_at }}</p>
     </div>
-</div>
-</body>
-</html>
+{% endblock %}
