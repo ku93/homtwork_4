@@ -1,0 +1,49 @@
+{% extends 'blog/base.html' %}
+{% block title %} Блог | Личный блог Андрея Ткачева {% endblock %}
+{% load humanize %}
+{% block content %}
+
+<h1 class="text-center">Блог</h1>
+<p class="lead text-center ">Приветствую вас на нашем блоге! Здесь вы найдете полезные статьи о рыбалке, новости из моей
+    жизни и многое другое. Присоединяйтесь к обсуждению и делитесь своими мыслями!</p>
+<div class="container my-5">
+    {% if object_list %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 ms-3">
+        {% for post in object_list%}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header text-center">
+                    {% if post.preview_image %}
+                    <img src="{{ post.preview_image.url }}" class="img-fluid" alt="{{ post.title }}"
+                         style="height: 150px; object-fit: cover;">
+                    {% endif %}
+
+                </div>
+                <div class="card-body d-flex flex-column justify-content-between">
+                     <h5 class="card-title mt-2" style="min-height: 40px;">{{ post.title|truncatechars:20 }}</h5>
+                    <p><small>{{post.content}}</small></p>
+                    <div class="mt-auto">
+                        <a class="btn btn-outline-success d-block w-100" href='{% url "blog:post_detail" post.pk%}' role="button">Подробнее</a>
+
+                        <small class="text-body-secondary">Последнее изменение: {{ post.updated_at|timesince }}
+                            назад</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+        <button type="button" class="btn btn-success mt-3 ms-3"><a class="text-white" href="{% url 'blog:post_create' %}">Создать новый пост</a>
+        </button>
+    </div>
+</div>
+
+
+</div>
+
+{% else %}
+<p class="text-center">К сожалению, тут еще нет записей</p>
+{% endif %}
+
+</div>
+{% endblock %}
