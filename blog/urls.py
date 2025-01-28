@@ -15,7 +15,7 @@ from .views import (
 app_name = BlogConfig.name
 
 urlpatterns = [
-    path("", Home.as_view(), name='home'),
+    path("b", Home.as_view(), name='home'),
     path('blog', PostListView.as_view(), name='blog'),
     path('<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('create/', PostCreateView.as_view(), name='post_create'),
