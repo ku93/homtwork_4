@@ -23,6 +23,13 @@ class Category(models.Model):
         help_text="Загрузите фотографию продукта",
     )
 
+    views_counter = models.PositiveIntegerField(
+        verbose_name="Счетчик просмотров",
+        help_text="Укажите количество просмотров",
+        default=0
+    )
+
+
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
@@ -74,6 +81,12 @@ class Product(models.Model):
         auto_now=True,
         verbose_name="Дата последнего изменения",
         help_text="Дата последнего изменения продукта",
+    )
+
+    views_counter = models.PositiveIntegerField(
+        verbose_name="Счетчик просмотров",
+        help_text="Укажите количество просмотров",
+        default=0
     )
 
 

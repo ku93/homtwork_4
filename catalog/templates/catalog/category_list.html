@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+{% block title %}Меню | Категории{% endblock %}
+{% load humanize %}
+{% block content %}
+<h1 class="text-center" xmlns="http://www.w3.org/1999/html">Категории</h1>
+<div class="container my-5">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+    {% for category in object_list %}
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-header text-center">
+            {% if category.photo %}
+            <img src="{{ category.photo.url }}" class="img-fluid" alt="{{ category.name }}" style="height: 150px; object-fit: cover;">
+            {% endif %}
+            <h5 class="card-title mt-2" style="min-height: 40px;">{{ category.name|truncatechars:20 }}</h5>
+          </div>
+          <div class="card-body d-flex flex-column justify-content-between">
+            <p class="card-text">{{ category.description|truncatechars:100 }}</p>
+            <div class="mt-auto">
+              <a class="btn btn-outline-primary d-block w-100" href="{% url 'catalog:category_products' category.pk %}" role="button">Подробнее</a>
+              <a class="btn btn-outline-primary d-block w-100 mt-2" href="{% url 'catalog:category_update' category.pk %}" role="button">Редактировать</a>
+              <a class="btn btn-outline-danger d-block w-100 mt-2" href="{% url 'catalog:category_delete' category.pk %}" role="button">Удалить</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+      <button type="button" class="btn btn-secondary mt-3 "><a class="text-white" href="{% url 'catalog:categories_create' %}">Создать новую категорию</a></button>
+  </div>
+</div>
+{% endblock %}
+
