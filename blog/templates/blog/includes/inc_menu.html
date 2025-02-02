@@ -53,7 +53,11 @@
                         <li><a class="dropdown-item" href="#">Мое снаряжение</a></li>
                         <li><a class="dropdown-item" href="#">Мои рецепты</a></li>
                         <li><a class="dropdown-item" href="#">Мои советы</a></li>
+
                     </ul>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link" aria-current="page" href="{% url 'catalog:home' %}">Магазин</a>
                 </li>
             </ul>
             <form action="{% url 'blog:search_results' %}" method="get" class="d-flex my-auto">

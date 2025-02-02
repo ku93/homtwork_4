@@ -28,6 +28,11 @@
                     <img src="{% static 'bootstrap-icons-1.11.3/person-circle.svg' %}" class="icon" alt="Контакты"> Контакты
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {% if current_page == 'blog' %} active {% endif %} text-white text-start" href='{% url "blog:blog" %}'>
+                    <img src="{% static 'bootstrap-icons-1.11.3/body-text.svg' %}" class="icon" alt="Контакты"> Наш блог
+                </a>
+            </li>
         </ul>
     </div>
     <div class="card-footer bg-transparent custom-border-white">

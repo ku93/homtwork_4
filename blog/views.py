@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-
 from .models import BlogPost
 
 class Home(View):

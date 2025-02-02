@@ -1,7 +1,7 @@
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, View, CreateView, UpdateView, DeleteView
 
-from django.shortcuts import render, get_object_or_404
 from catalog.models import Product, Category
 
 
@@ -13,6 +13,7 @@ class ProductListView(ListView):
         context['current_page'] = 'home'
         return context
 
+
 class ProductDetailView(DetailView):
     model = Product
 
@@ -23,9 +24,10 @@ class ProductDetailView(DetailView):
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        self.object.views_counter +=1
+        self.object.views_counter += 1
         self.object.save()
         return self.object
+
 
 class CategoryListView(ListView):
     model = Category
@@ -34,6 +36,7 @@ class CategoryListView(ListView):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'catalogs'
         return context
+
 
 class CategoryProductsView(ListView):
     model = Product
@@ -44,42 +47,47 @@ class CategoryProductsView(ListView):
         return Product.objects.filter(category=category).select_related('category')
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'catalogs'
         context['category'] = get_object_or_404(Category, pk=self.kwargs['pk'])
         return context
 
-class Contacts(View):
 
+class Contacts(View):
     def get(self, request, *args, **kwargs):
         context = {
             'current_page': 'contacts',
         }
         return render(request, 'catalog/contacts.html', context)
 
+
 class CategoryCreateView(CreateView):
     model = Category
     fields = ('name', 'description', 'photo')
     success_url = reverse_lazy('catalog:catalogs')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'catalogs'
         return context
 
+
 class ProductCreateView(CreateView):
     model = Product
     fields = ('name', 'description', 'picture', 'category', "purchase_price")
     success_url = reverse_lazy('catalog:home')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'home'
         return context
 
+
 class CategoryUpdateView(UpdateView):
     model = Category
     fields = ('name', 'description', 'photo')
     success_url = reverse_lazy('catalog:catalogs')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'catalogs'
@@ -88,10 +96,12 @@ class CategoryUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('catalog:category_products', args=[self.kwargs.get("pk")])
 
+
 class ProductUpdateView(UpdateView):
     model = Product
     fields = ('name', 'description', 'picture', 'category', "purchase_price")
     success_url = reverse_lazy('catalog:home')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'home'
@@ -99,6 +109,7 @@ class ProductUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('catalog:product_detail', args=[self.kwargs.get("pk")])
+
 
 class CategoryDeleteView(DeleteView):
     model = Category
@@ -109,10 +120,17 @@ class CategoryDeleteView(DeleteView):
         context['current_page'] = 'catalogs'
         return context
 
+
 class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'home'
         return context
+
+
+class Blog(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'blog/post_list.html')
