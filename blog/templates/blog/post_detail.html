@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %}
+{% extends 'catalog/base.html' %}
 {% block title %}{{ object.title }}{% endblock %}
 {% load humanize %}
 {% load static %}
@@ -14,7 +14,7 @@
     {%csrf_token%}
 </div>
 <div class="mt-auto">
-    <a class="btn btn-outline-success  mt-2" href="{% url 'blog:post_update' post.pk %}" role="button">Редактировать</a>
+    <a class="btn btn-outline-primary  mt-2" href="{% url 'blog:post_update' post.pk %}" role="button">Редактировать</a>
 
     <a class="btn btn-outline-danger  mt-2" href="{% url 'blog:post_delete' post.pk%}" role="button">Удалить</a>
 </div>
