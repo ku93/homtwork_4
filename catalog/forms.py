@@ -1,8 +1,22 @@
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm, BooleanField
+from django.forms import ModelForm, BooleanField, forms
 
 from catalog.models import Product, Category
 
+FORBIDDEN_WORDS = [
+    'казино',
+    'криптовалюта',
+    'крипта',
+    'биржа',
+    'дешево',
+    'бесплатно',
+    'обман',
+    'полиция',
+    'радар'
+]
+
+VALID_IMAGE_FORMATS = ['image/jpeg', 'image/png']
+MAX_IMAGE_SIZE = 5 * 1024 * 1024  # 5 MB
 
 class StyledFormMixin:
     def __init__(self, *args, **kwargs):
@@ -20,53 +34,26 @@ class ProductForm(StyledFormMixin, ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data['name']
-
-        forbidden_words = [
-            'казино',
-            'криптовалюта',
-            'крипта',
-            'биржа',
-            'дешево',
-            'бесплатно',
-            'обман',
-            'полиция',
-            'радар'
-        ]
-
-        for word in forbidden_words:
-            if word.lower() in name.lower():
-                raise ValidationError('Поле содержит запрещённые слова.')
-
+        if any(word.lower() in name.lower() for word in FORBIDDEN_WORDS):
+            raise ValidationError('Поле содержит запрещённые слова.')
         return name
 
     def clean_description(self):
         description = self.cleaned_data['description']
-
-        forbidden_words = [
-            'казино',
-            'криптовалюта',
-            'крипта',
-            'биржа',
-            'дешево',
-            'бесплатно',
-            'обман',
-            'полиция',
-            'радар'
-        ]
-
-        for word in forbidden_words:
-            if word.lower() in description.lower():
-                raise ValidationError('Поле содержит запрещённые слова.')
-
+        if any(word.lower() in description.lower() for word in FORBIDDEN_WORDS):
+            raise ValidationError('Поле содержит запрещённые слова.')
         return description
 
+    def clean_image(self):
+        image = self.cleaned_data['image']
 
-    def clean_purchase_price(self):
-        purchase_price = self.cleaned_data["purchase_price"]
-        if purchase_price < 0:
-            raise ValidationError("цена продукта не может быть отрицательной")
-        else:
-            return purchase_price
+        if hasattr(image, 'content_type') and image.content_type not in VALID_IMAGE_FORMATS:
+            raise forms.ValidationError(f'Допустимые форматы изображений: {", ".join(VALID_IMAGE_FORMATS)}.')
+
+        if image.size > MAX_IMAGE_SIZE:
+            raise forms.ValidationError(f'Максимальный размер файла - {MAX_IMAGE_SIZE / 1024 / 1024:.2f} МБ.')
+
+        return image
 
 class CategoryForm(StyledFormMixin, ModelForm):
     class Meta:
