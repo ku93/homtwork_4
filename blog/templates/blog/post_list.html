@@ -1,5 +1,5 @@
 {% extends 'catalog/base.html' %}
-{% block title %} Блог | Личный блог Андрея Ткачева {% endblock %}
+{% block title %} Блог  {% endblock %}
 {% load humanize %}
 {% block content %}
 
@@ -32,19 +32,20 @@
             </div>
         </div>
         {% endfor %}
-            <button type="button" class="btn btn-secondary mt-3 ms-3"><a class="text-white"
-                                                                         href="{% url 'blog:post_create' %}">Создать
-                новый пост</a></button>
+
 
     </div>
-</div>
-
-
 </div>
 
 {% else %}
 <p class="text-center">К сожалению, тут еще нет записей</p>
 {% endif %}
+<button type="button" class="btn btn-secondary mt-3 ms-3"><a class="text-white"
+                                                                         href="{% url 'blog:post_create' %}">Создать
+    новый пост</a></button>
 
 </div>
+
+
+
 {% endblock %}

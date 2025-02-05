@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
+from .forms import BlogPostForm
 from .models import BlogPost
 
 
@@ -42,7 +43,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(CreateView):
     model = BlogPost
-    fields = ['title', 'content', 'preview_image', 'is_published']
+    form_class = BlogPostForm
     template_name = 'blog/post_form.html'
     success_url = reverse_lazy('blog:blog')
 
@@ -53,7 +54,7 @@ class PostCreateView(CreateView):
 
 class PostUpdateView(UpdateView):
     model = BlogPost
-    fields = ['title', 'content', 'preview_image', 'is_published']
+    form_class = BlogPostForm
     template_name = 'blog/post_form.html'
     success_url = reverse_lazy('blog:blog')
 

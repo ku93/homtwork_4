@@ -22,7 +22,7 @@ class BlogPost(models.Model):
         verbose_name="Дата создания",
         help_text="Дата создания поста",
     )
-    is_published = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=True)
     views_count = models.PositiveIntegerField(default=0)
     updated_at = models.DateTimeField(
         auto_now=True,

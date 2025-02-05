@@ -1,7 +1,9 @@
+from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, View, CreateView, UpdateView, DeleteView
 
+from catalog.forms import ProductForm, CategoryForm
 from catalog.models import Product, Category
 
 
@@ -63,7 +65,7 @@ class Contacts(View):
 
 class CategoryCreateView(CreateView):
     model = Category
-    fields = ('name', 'description', 'photo')
+    form_class = CategoryForm
     success_url = reverse_lazy('catalog:catalogs')
 
     def get_context_data(self, **kwargs):
@@ -74,7 +76,7 @@ class CategoryCreateView(CreateView):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = ('name', 'description', 'picture', 'category', "purchase_price")
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
 
     def get_context_data(self, **kwargs):
@@ -85,7 +87,7 @@ class ProductCreateView(CreateView):
 
 class CategoryUpdateView(UpdateView):
     model = Category
-    fields = ('name', 'description', 'photo')
+    form_class = CategoryForm
     success_url = reverse_lazy('catalog:catalogs')
 
     def get_context_data(self, **kwargs):
@@ -99,7 +101,7 @@ class CategoryUpdateView(UpdateView):
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = ('name', 'description', 'picture', 'category', "purchase_price")
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
 
     def get_context_data(self, **kwargs):
