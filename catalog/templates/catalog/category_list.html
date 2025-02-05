@@ -18,8 +18,7 @@
             <p class="card-text">{{ category.description|truncatechars:100 }}</p>
             <div class="mt-auto">
               <a class="btn btn-outline-primary d-block w-100" href="{% url 'catalog:category_products' category.pk %}" role="button">Подробнее</a>
-              <a class="btn btn-outline-primary d-block w-100 mt-2" href="{% url 'catalog:category_update' category.pk %}" role="button">Редактировать</a>
-              <a class="btn btn-outline-danger d-block w-100 mt-2" href="{% url 'catalog:category_delete' category.pk %}" role="button">Удалить</a>
+
             </div>
           </div>
         </div>
