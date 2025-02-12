@@ -2,20 +2,24 @@
 <div class="card text-bg-dark mb-1" style="max-width: 18rem;">
     <div class="card-header custom-border-white">
         <a class="navbar-brand text-white" href="http://127.0.0.1:8000/">
-            <img src="{% static 'bootstrap-icons-1.11.3/bootstrap-fill-svgrepo-com.svg' %}" alt="Логотип" width="30" height="24" class="icon">
+            <img src="{% static 'bootstrap-icons-1.11.3/bootstrap-fill-svgrepo-com.svg' %}" alt="Логотип" width="30"
+                 height="24" class="icon">
             Меню
         </a>
     </div>
     <div class="card-body black-section left">
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-                <a class="nav-link {% if current_page == 'home' %} active {% endif %} text-white text-start" href='{% url "catalog:home" %}'>
+                <a class="nav-link {% if current_page == 'home' %} active {% endif %} text-white text-start"
+                   href='{% url "catalog:home" %}'>
                     <img src="{% static 'bootstrap-icons-1.11.3/houses-fill.svg' %}" class="icon" alt="Главная"> Главная
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if current_page == 'catalogs' %} active {% endif %} text-white text-start" href='{% url "catalog:catalogs" %}'>
-                    <img src="{% static 'bootstrap-icons-1.11.3/speedometer2.svg' %}" class="icon" alt="Категории"> Категории
+                <a class="nav-link {% if current_page == 'catalogs' %} active {% endif %} text-white text-start"
+                   href='{% url "catalog:catalogs" %}'>
+                    <img src="{% static 'bootstrap-icons-1.11.3/speedometer2.svg' %}" class="icon" alt="Категории">
+                    Категории
                 </a>
             </li>
             <li class="nav-item">
@@ -24,21 +28,38 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if current_page == 'contacts' %} active {% endif %} text-white text-start" href='{% url "catalog:contacts" %}'>
-                    <img src="{% static 'bootstrap-icons-1.11.3/person-circle.svg' %}" class="icon" alt="Контакты"> Контакты
+                <a class="nav-link {% if current_page == 'contacts' %} active {% endif %} text-white text-start"
+                   href='{% url "catalog:contacts" %}'>
+                    <img src="{% static 'bootstrap-icons-1.11.3/person-circle.svg' %}" class="icon" alt="Контакты">
+                    Контакты
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if current_page == 'blog' %} active {% endif %} text-white text-start" href='{% url "blog:blog" %}'>
+                <a class="nav-link {% if current_page == 'blog' %} active {% endif %} text-white text-start"
+                   href='{% url "blog:blog" %}'>
                     <img src="{% static 'bootstrap-icons-1.11.3/body-text.svg' %}" class="icon" alt="Контакты"> Наш блог
                 </a>
             </li>
         </ul>
     </div>
     <div class="card-footer bg-transparent custom-border-white">
-        <a href="#" class="nav-link text-white">
-            <img src="{% static 'bootstrap-icons-1.11.3/person-circle.svg' %}" class="icon" alt="Ghjabkm" > Профиль
-        </a>
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item dropdown mx-2">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    Профиль
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выход</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="{% url 'users:login' %}">Вход</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:register' %}">Зарегистрироваться</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        </ul>
+
     </div>
 
 </div>

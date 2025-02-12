@@ -24,7 +24,9 @@
         </div>
       </div>
     {% endfor %}
+    {% if user.is_authenticated %}
       <button type="button" class="btn btn-secondary mt-3 "><a class="text-white" href="{% url 'catalog:categories_create' %}">Создать новую категорию</a></button>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

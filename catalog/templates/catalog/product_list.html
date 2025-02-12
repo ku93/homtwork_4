@@ -30,7 +30,9 @@
             </div>
 
             {% endfor %}
+            {% if user.is_authenticated %}
             <button type="button" class="btn btn-secondary mt-3 "><a class="text-white" href="{% url 'catalog:product_create' %}">Создать новый продукт</a></button>
+            {% endif %}
         </div>
     {% else %}
         <p class="text-center">К сожалению, товаров нет в наличии.</p>
