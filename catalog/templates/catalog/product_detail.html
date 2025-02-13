@@ -10,9 +10,11 @@
 <p class="mt-3">Описание: {{ object.description }}</p>
 <p>Цена: {{ object.purchase_price }} р.</p>
 <a class="btn btn-outline-primary " href="#">Купить</a>
+{% if user.is_authenticated %}
 <a class="btn btn-outline-primary  " href="{% url 'catalog:product_update' product.pk %}"
    role="button">Редактировать</a>
 <a class="btn btn-outline-danger  " href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
+{% endif %}
 <p>Последнее изменение: {{ object.updated_at }}</p>
 <p>Добавлен: {{ object.created_at }}</p>
 </div>

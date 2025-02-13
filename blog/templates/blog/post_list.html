@@ -40,9 +40,10 @@
 {% else %}
 <p class="text-center">К сожалению, тут еще нет записей</p>
 {% endif %}
+{% if user.is_authenticated %}
 <button type="button" class="btn btn-secondary mt-3 ms-3"><a class="text-white"
                                                                          href="{% url 'blog:post_create' %}">Создать
-    новый пост</a></button>
+    новый пост</a></button>{% endif %}
 
 </div>
 

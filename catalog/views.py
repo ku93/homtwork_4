@@ -1,7 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, View, CreateView, UpdateView, DeleteView
+from unicodedata import category
 
 from catalog.forms import ProductForm, CategoryForm
 from catalog.models import Product, Category
@@ -63,7 +65,7 @@ class Contacts(View):
         return render(request, 'catalog/contacts.html', context)
 
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(CreateView, LoginRequiredMixin):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('catalog:catalogs')
@@ -74,7 +76,9 @@ class CategoryCreateView(CreateView):
         return context
 
 
-class ProductCreateView(CreateView):
+
+
+class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
@@ -84,8 +88,15 @@ class ProductCreateView(CreateView):
         context['current_page'] = 'home'
         return context
 
+    def form_valid(self, form):
+        product = form.save()
+        user = self.request.user
+        product.owner = user
+        product.save()
+        return super().form_valid()
 
-class CategoryUpdateView(UpdateView):
+
+class CategoryUpdateView(UpdateView, LoginRequiredMixin):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('catalog:catalogs')
@@ -99,7 +110,7 @@ class CategoryUpdateView(UpdateView):
         return reverse('catalog:category_products', args=[self.kwargs.get("pk")])
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(UpdateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
@@ -113,7 +124,7 @@ class ProductUpdateView(UpdateView):
         return reverse('catalog:product_detail', args=[self.kwargs.get("pk")])
 
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(DeleteView, LoginRequiredMixin):
     model = Category
     success_url = reverse_lazy('catalog:catalogs')
 
@@ -123,7 +134,7 @@ class CategoryDeleteView(DeleteView):
         return context
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(DeleteView, LoginRequiredMixin):
     model = Product
     success_url = reverse_lazy('catalog:home')
 

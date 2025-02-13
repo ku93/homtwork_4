@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from datetime import datetime
 
+from users.models import User
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -88,6 +90,7 @@ class Product(models.Model):
         help_text="Укажите количество просмотров",
         default=0
     )
+    owner = models.ForeignKey(User, verbose_name="Владелец", help_text='Владелец продукта', blank=True, null=True, on_delete=models.SET_NULL)
 
 
 
