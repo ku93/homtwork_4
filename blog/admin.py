@@ -5,7 +5,6 @@ from blog.models import BlogPost
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
-    list_display = ("id", 'title', 'created_at')
+    list_display = ("id", "title", "created_at")
     list_filter = ("created_at",)
-    search_fields = ('title',)
-
+    search_fields = ("title",)

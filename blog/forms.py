@@ -1,6 +1,7 @@
-from django.forms import ModelForm, BooleanField
+from django.forms import BooleanField, ModelForm
 
 from blog.models import BlogPost
+
 
 class StyledFormMixin:
     def __init__(self, *args, **kwargs):
@@ -10,6 +11,7 @@ class StyledFormMixin:
                 field.widget.attrs["class"] = "form-check-input"
             else:
                 field.widget.attrs["class"] = "form-control"
+
 
 class BlogPostForm(StyledFormMixin, ModelForm):
     class Meta:

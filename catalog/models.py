@@ -1,6 +1,7 @@
+from datetime import datetime
+
 from django.db import models
 from django.utils import timezone
-from datetime import datetime
 
 from users.models import User
 
@@ -28,9 +29,8 @@ class Category(models.Model):
     views_counter = models.PositiveIntegerField(
         verbose_name="Счетчик просмотров",
         help_text="Укажите количество просмотров",
-        default=0
+        default=0,
     )
-
 
     class Meta:
         verbose_name = "Категория"
@@ -66,7 +66,7 @@ class Product(models.Model):
         help_text="Выберите категорию продукта",
         blank=True,
         null=True,
-        related_name='products'
+        related_name="products",
     )
     purchase_price = models.DecimalField(
         max_digits=10,
@@ -88,12 +88,17 @@ class Product(models.Model):
     views_counter = models.PositiveIntegerField(
         verbose_name="Счетчик просмотров",
         help_text="Укажите количество просмотров",
-        default=0
+        default=0,
     )
     is_published = models.BooleanField(default=False)
-    owner = models.ForeignKey(User, verbose_name="Владелец", help_text='Владелец продукта', blank=True, null=True, on_delete=models.SET_NULL)
-
-
+    owner = models.ForeignKey(
+        User,
+        verbose_name="Владелец",
+        help_text="Владелец продукта",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     class Meta:
         verbose_name = "Продукт"

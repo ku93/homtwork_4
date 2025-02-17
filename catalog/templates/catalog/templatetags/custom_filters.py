@@ -3,6 +3,7 @@ from django.utils import timezone
 
 register = template.Library()
 
+
 @register.filter
 def time_since(value):
     if value:

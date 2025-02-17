@@ -13,10 +13,7 @@ class BlogPost(models.Model):
         blank=True,
         null=True,
     )
-    preview_image = models.ImageField(
-        upload_to='blog_previews/',
-        blank=True,
-        null=True)
+    preview_image = models.ImageField(upload_to="blog_previews/", blank=True, null=True)
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Дата создания",
