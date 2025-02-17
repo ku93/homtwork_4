@@ -55,6 +55,11 @@ class ProductForm(StyledFormMixin, ModelForm):
 
         return image
 
+class ProductModeratorForm(StyledFormMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = ("is_published",)
+
 class CategoryForm(StyledFormMixin, ModelForm):
     class Meta:
         model = Category

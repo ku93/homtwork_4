@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, View, CreateView, UpdateView, DeleteView
 from unicodedata import category
 
-from catalog.forms import ProductForm, CategoryForm
+from catalog.forms import ProductForm, CategoryForm, ProductModeratorForm
 from catalog.models import Product, Category
 
 
@@ -123,6 +124,16 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
     def get_success_url(self):
         return reverse('catalog:product_detail', args=[self.kwargs.get("pk")])
 
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        if user.has_perm("catalog.can_unpublish_product"):
+            return ProductModeratorForm
+        else:
+            raise PermissionDenied
+
+
 
 class CategoryDeleteView(DeleteView, LoginRequiredMixin):
     model = Category
@@ -142,6 +153,10 @@ class ProductDeleteView(DeleteView, LoginRequiredMixin):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'home'
         return context
+
+    def test_func(self):
+        product = self.get_object()
+        return self.request.user == product.owner or self.request.user.has_perm("product.can_delete_product")
 
 
 class Blog(View):

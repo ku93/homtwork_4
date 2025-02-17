@@ -90,6 +90,7 @@ class Product(models.Model):
         help_text="Укажите количество просмотров",
         default=0
     )
+    is_published = models.BooleanField(default=False)
     owner = models.ForeignKey(User, verbose_name="Владелец", help_text='Владелец продукта', blank=True, null=True, on_delete=models.SET_NULL)
 
 
@@ -98,6 +99,10 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["category", "name"]
+        permissions = [
+            ("can_unpublish_product", "can unpublish product"),
+            ("can_delete_product", "can delete product"),
+        ]
 
     def __str__(self):
         return self.name
